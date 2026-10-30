@@ -97,7 +97,7 @@
             'Nužudymas: nuskenuokite taikinio NFC žymę, tada savo (nužudžiusio žaidėjo) žymę.',
             'Klaidingas skenavimas užrakina telefoną 15 sekundžių.',
             'Žuvę žaidėjai gali toliau rinkti taškus.',
-            'Žaidimas baigiasi pasibaigus laikui arba kai komandoje nebelieka gyvų žaidėjų. Laimi komanda su daugiau gyvų žaidėjų, jei vienodai – su daugiau nužudymų.' ], file: 'bounty-hunter.html', title: 'Lithilas Bounty Hunter', desc: 'Komandų medžioklė su NFC. Vienas telefonas kiekvienai komandai.',
+            'Žaidimas baigiasi pasibaigus laikui arba kai komandoje nebelieka gyvų žaidėjų. Laimi komanda su daugiau gyvų žaidėjų, jei vienodai – su daugiau nužudymų.' ], file: 'https://lithilas.github.io/BH/', title: 'Lithilas Bounty Hunter', desc: 'Komandų medžioklė su NFC. Vienas telefonas kiekvienai komandai.',
           links: [
             { label: 'Raudona komanda', q: '?role=RAUDONA', dot: 'red' },
             { label: 'Mėlyna komanda', q: '?role=MELYNA', dot: 'blue' },
@@ -108,7 +108,7 @@
             'Jei per tą laiką kita komanda paspaudžia savo mygtuką, užėmimas nutraukiamas ir prasideda iš naujo.',
             'Komandai skaičiuojamas laikas, kol ji valdo aktyvų punktą. Kai punktas pasikeičia, valdymas pasibaigia.',
             'Likus 1 minutei iki keitimo suskamba signalas.',
-            'Laimi komanda, kuri iki žaidimo pabaigos (iš pradžių 120 min.) surinko daugiau valdymo laiko.' ], file: 'airsoft-points.html', title: 'Airsoft taškai', desc: 'Dviejų punktų užėmimo laikmatis, punktai keičiasi pagal laiką.',
+            'Laimi komanda, kuri iki žaidimo pabaigos (iš pradžių 120 min.) surinko daugiau valdymo laiko.' ], file: 'https://lithilas.github.io/HP/', title: 'Hard Point', desc: 'Dviejų punktų užėmimo laikmatis, punktai keičiasi pagal laiką.',
           links: [
             { label: 'Punktas 1', q: '?role=point1', dot: '' },
             { label: 'Punktas 2', q: '?role=point2', dot: '' },
@@ -120,7 +120,7 @@
             'Kai laikmatis pasiekia nulį, taškas užimtas. Užėmus KT2, tampa nauja bazė, iš kurios keliaujama į paskutinį tašką.',
             'Visas žaidimas trunka 105 minutes. Puolėjai laimi, jei užima visus tris taškus, gynėjai – jei laikas pasibaigia anksčiau.',
             'Puolėjai arba žaidimo vedėjas gali sustabdyti užėmimo laiką pauze, bendras žaidimo laikas tuo metu vis tiek eina.',
-            'Gynėjai savo telefone mato žemėlapį ir tai, kuris taškas dabar užimamas.' ], file: 'cp-rush.html', title: 'Taško užėmimas', desc: 'Puolėjai užima tris kontrolės taškus, gynėjai gina.',
+            'Gynėjai savo telefone mato žemėlapį ir tai, kuris taškas dabar užimamas.' ], file: 'https://lithilas.github.io/CPRUSH/', title: 'CP Rush', desc: 'Puolėjai užima tris kontrolės taškus, gynėjai gina.',
           links: [
             { label: 'Puolėjai', q: '?role=attacker', dot: '' },
             { label: 'Gynėjai', q: '?role=defender', dot: '' },
@@ -131,7 +131,7 @@
             '2 etapas (10–40 min.): kas 10 min. aktyvuojamas vienas taškas. Kiekviena komanda jį gali nuskenuoti vieną kartą: +4 tšk.',
             '3 etapas (40–70 min.): kas 10 min. aktyvūs du taškai, bet vienas jų netikras ir taškų neduoda. Taškas vėl +4 tšk.',
             '4 etapas (70–105 min.): dominavimas, penki taškai. Pirmas skenavimas pradeda 5 min. atrakinimą, po jo pirmoji komanda, nuskenavusi tašką, jį užima: +3 tšk.',
-            'Laimi komanda, surinkusi daugiau taškų.' ], file: 'lithilas-terminal.html', title: 'Lithilas terminalas', desc: 'NFC taškų rinkimas 105 min., keturi etapai.',
+            'Laimi komanda, surinkusi daugiau taškų.' ], file: 'https://lithilas.github.io/Terminal/', title: 'Lithilas terminalas', desc: 'NFC taškų rinkimas 105 min., keturi etapai.',
           links: [
             { label: 'Raudona komanda', q: '?team=raudona', dot: 'red' },
             { label: 'Mėlyna komanda', q: '?team=melyna', dot: 'blue' },
@@ -166,12 +166,14 @@
     }
     function lockGm() { unlocked = false; try { sessionStorage.removeItem('gm_ok'); } catch (e) {} renderPin(); render(); }
 
-    function fileOf(g) { return (store.get('file_' + g.id, g.file) || g.file).trim(); }
+    function fileOf(g) { return (store.get('addr_' + g.id, g.file) || g.file).trim(); }
     function urlOf(g, l) {
-        let base = store.get('base', '').trim();
+        let base = store.get('base2', '').trim();
         if (base && !base.endsWith('/')) base += '/';
-        const path = fileOf(g) + l.q;
-        if (base) return base + path;
+        const f = fileOf(g);
+        const path = f + l.q;
+        if (/^https?:\/\//i.test(f)) return path;            // pilnas adresas: naudojamas kaip yra
+        if (base) return base + f.replace(/^\//, '') + l.q;
         try { return new URL(path, location.href).href; } catch (e) { return path; }
     }
 
@@ -220,12 +222,12 @@
 
     /* Nustatymai */
     const baseEl = document.getElementById('base');
-    baseEl.value = store.get('base', '');
-    baseEl.addEventListener('input', () => { store.set('base', baseEl.value); render(); });
+    baseEl.value = store.get('base2', '');
+    baseEl.addEventListener('input', () => { store.set('base2', baseEl.value); render(); });
     document.getElementById('files').innerHTML = GAMES.map(g => `
-        <div class="field"><label for="f-${g.id}">${esc(g.title)} – failas</label>
+        <div class="field"><label for="f-${g.id}">${esc(g.title)} – failas arba pilnas adresas</label>
         <input type="text" id="f-${g.id}" value="${esc(fileOf(g))}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>`).join('');
-    GAMES.forEach(g => document.getElementById('f-' + g.id).addEventListener('input', e => { store.set('file_' + g.id, e.target.value); render(); }));
+    GAMES.forEach(g => document.getElementById('f-' + g.id).addEventListener('input', e => { store.set('addr_' + g.id, e.target.value); render(); }));
 
     renderPin();
     render();
