@@ -76,6 +76,13 @@
 
     <div id="games"></div>
 
+    <section class="game" style="padding-bottom:18px;">
+        <div class="num">Kiti organizatoriai</div>
+        <h2>Sukurti naują žaidimą</h2>
+        <p class="desc">Bounty Hunter su savo kodu ir savo žaidimo vedėju.</p>
+        <a class="btn" style="width:100%;" href="https://lithilas.github.io/BH/create-game.html" target="_blank" rel="noopener">Atidaryti kūrimo puslapį</a>
+    </section>
+
     <details class="settings hidden" id="settings">
         <summary>Adresai ir failų pavadinimai</summary>
         <div class="field">
@@ -99,9 +106,9 @@
             'Žuvę žaidėjai gali toliau rinkti taškus.',
             'Žaidimas baigiasi pasibaigus laikui arba kai komandoje nebelieka gyvų žaidėjų. Laimi komanda su daugiau gyvų žaidėjų, jei vienodai – su daugiau nužudymų.' ], file: 'https://lithilas.github.io/BH/', title: 'Lithilas Bounty Hunter', desc: 'Komandų medžioklė su NFC. Vienas telefonas kiekvienai komandai.',
           links: [
-            { label: 'Raudona komanda', q: '?role=RAUDONA', dot: 'red' },
-            { label: 'Mėlyna komanda', q: '?role=MELYNA', dot: 'blue' },
-            { label: 'Žaidimo vedėjas (GM)', q: '?role=GM', dot: 'ink', gm: true } ] },
+            { label: 'Raudona komanda', q: '?room=LITHILAS&role=RAUDONA', dot: 'red' },
+            { label: 'Mėlyna komanda', q: '?room=LITHILAS&role=MELYNA', dot: 'blue' },
+            { label: 'Žaidimo vedėjas (GM)', q: '?room=LITHILAS&role=GM', dot: 'ink', gm: true } ] },
         { id: 'points', rules: [
             'Yra du punktai, bet kiekvienu metu aktyvus tik vienas. Aktyvus punktas keičiasi kas nustatytą laiką (iš pradžių 15 min.).',
             'Punktą užima komanda, kuri savo spalvos mygtuką laiko nuspaudusi apie 10 sekundžių, kol užsipildys ratas.',
