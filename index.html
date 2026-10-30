@@ -3,291 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lithilas | Airsoft Žaidimai Pasvalyje</title>
+    <meta name="theme-color" content="#F4F5F7">
+    <title>Žaidimų nuorodos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap">
     <style>
         :root {
-            --primary-color: #e63946;
-            --bg-color: #121212;
-            --text-color: #f1faee;
-            --card-bg: #1e1e1e;
+            --bg: #F4F5F7; --surface: #FFFFFF; --line: #D9DCE2; --line-strong: #C3C8D1;
+            --ink: #14171C; --muted: #5B6270;
+            --red: #D92D27; --red-ink: #B3211C; --blue: #1F5FD6; --gray-dot: #9AA1AE;
         }
+        * { box-sizing: border-box; }
+        body { font-family: 'Barlow', system-ui, sans-serif; background: var(--bg); color: var(--ink); margin: 0; padding: 28px 16px 64px; font-size: 16px; line-height: 1.4; -webkit-tap-highlight-color: transparent; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: 6px; background: var(--ink); z-index: 5; }
+        .hidden { display: none !important; }
+        .wrap { max-width: 640px; margin: 0 auto; }
+        h1 { font: 700 2.6rem/1.05 'Barlow Condensed', sans-serif; margin: 0 0 4px; }
+        .muted { color: var(--muted); }
+        :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; scroll-behavior: smooth; }
-        a { text-decoration: none; color: inherit; }
+        .game { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 8px; margin-top: 16px; }
+        .game-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 4px; }
+        .num { font: 600 .95rem 'Barlow', sans-serif; color: var(--muted); }
+        h2 { font: 700 2rem/1.1 'Barlow Condensed', sans-serif; margin: 0; }
+        .desc { color: var(--muted); margin: 2px 0 12px; }
 
-        header {
-            background-color: rgba(18, 18, 18, 0.95);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
+        .link { padding: 12px 0; border-top: 1px solid var(--line); }
+        .link-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+        .link-top .btn { flex: 1 1 0; }
+        .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background: var(--gray-dot); }
+        .dot.red { background: var(--red); } .dot.blue { background: var(--blue); } .dot.ink { background: var(--ink); }
+        .role { font: 700 1.6rem/1.1 'Barlow Condensed', sans-serif; flex: 1 1 calc(100% - 30px); min-width: 0; }
+        .url { display: block; margin: 8px 0 0; font: 400 .85rem/1.35 ui-monospace, Menlo, Consolas, monospace; color: var(--muted); word-break: break-all; }
 
-        .logo { font-size: 1.8rem; font-weight: bold; color: var(--primary-color); text-transform: uppercase; }
-        .nav-links { list-style: none; display: flex; gap: 2rem; }
-        .nav-links a:hover { color: var(--primary-color); transition: 0.3s; }
-
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1544531406-3c588a44955b?q=80&w=1920&auto=format&fit=crop') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .hero h1 { font-size: 4rem; margin-bottom: 1rem; text-transform: uppercase; }
-        .hero p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn:hover { background-color: #c1121f; transform: translateY(-2px); }
+        .btn { min-height: 44px; padding: 8px 16px; font: 600 1rem 'Barlow', sans-serif; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .btn:active { transform: scale(.97); }
         
-        .btn-outline { 
-            background-color: transparent; 
-            border: 2px solid var(--primary-color); 
-            color: var(--primary-color); 
-        }
-        
-        .btn-outline:hover { 
-            background-color: var(--primary-color); 
-            color: white; 
-        }
+        .btn-copy.done { background: var(--ink); border-color: var(--ink); color: #fff; }
+        .all { padding: 12px 0 10px; border-top: 1px solid var(--line); }
+        .all .btn { width: 100%; }
 
-        .btn-sm {
-            padding: 8px 20px;
-            font-size: 0.9rem;
-            text-transform: none;
-        }
+        details.rules { margin: 0 0 12px; border: 1px solid var(--line-strong); border-radius: 12px; padding: 0 14px; background: var(--bg); }
+        details.rules summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+        details.rules ul { margin: 0 0 12px; padding-left: 20px; }
+        details.rules li { margin-bottom: 6px; }
+        details.rules h4 { margin: 10px 0 6px; font-size: .9rem; color: var(--muted); font-weight: 600; }
+        .pin { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px; margin-top: 16px; }
+        .pin-row { display: flex; gap: 10px; align-items: center; }
+        .pin-row input { flex: 1; min-width: 0; letter-spacing: .3em; text-align: center; font-size: 1.2rem; }
+        .pin-row .btn { flex-shrink: 0; }
+        .pin-title { font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .btn-primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+        details.settings { margin-top: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px; }
+        details.settings summary { cursor: pointer; font-weight: 600; }
+        .field { display: grid; grid-template-columns: 1fr; gap: 4px; margin-top: 14px; }
+        .field label { font-size: .9rem; font-weight: 600; color: var(--muted); }
+        input[type="text"] { width: 100%; padding: 10px 12px; font: 600 1rem 'Barlow', sans-serif; background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 12px; }
+        .small { font-size: .85rem; }
 
-        section { padding: 6rem 5%; }
-        h2.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary-color); text-transform: uppercase; }
-
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        
-        .mode-tag {
-            display: inline-block;
-            background: #333;
-            color: var(--primary-color);
-            padding: 5px 15px;
-            border-radius: 20px;
-            margin: 5px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border: 1px solid var(--primary-color);
-        }
-
-        .event-item {
-            background-color: var(--card-bg);
-            padding: 1.5rem;
-            border-left: 5px solid var(--primary-color);
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 0 auto 1rem;
-            max-width: 800px;
-        }
-
-        .insta-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-width: 1000px;
-            margin: 0 auto 3rem;
-        }
-
-        .insta-item {
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid #333;
-            position: relative;
-            background-color: #222;
-        }
-
-        .insta-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s ease;
-            display: block;
-        }
-
-        .insta-item:hover img {
-            transform: scale(1.05);
-            filter: brightness(0.6);
-        }
-
-        .review-card {
-            background: #1a1a1a;
-            padding: 2rem;
-            border-radius: 10px;
-            font-style: italic;
-            border: 1px solid #222;
-        }
-        .stars { color: #f1c40f; margin-bottom: 10px; }
-        .reviewer { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-color); font-style: normal; }
-
-        /* ATNAUJINTAS ŽEMĖLAPIO KONTEINERIS */
-        .map-container {
-            width: 100%;
-            height: 350px; /* Mažesnis aukštis */
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid #333;
-            margin-top: 2rem;
-            /* Dark Mode filtras */
-            filter: grayscale(1) invert(0.9) contrast(1.2);
-            transition: 0.3s;
-        }
-        .map-container:hover { filter: grayscale(0.5) invert(0.8) contrast(1.2); }
-
-        footer { background-color: #0a0a0a; padding: 4rem 5%; text-align: center; border-top: 1px solid #333; }
-        .footer-link { color: #aaa; transition: 0.3s; }
-        .footer-link:hover { color: var(--primary-color); }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 2.5rem; }
-            .insta-grid { grid-template-columns: repeat(2, 1fr); }
-            .map-container { height: 250px; }
-        }
+        #toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(120px); background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 12px; z-index: 10; opacity: 0; transition: .3s; pointer-events: none; font-weight: 600; }
+        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     </style>
 </head>
 <body>
+<div class="wrap">
+    <h1>Žaidimų nuorodos</h1>
+    <p class="muted">Paspauskite „Kopijuoti“ ir išsiųskite nuorodą atitinkamam telefonui.</p>
 
-    <header>
-        <div class="logo">Lithilas</div>
-        <ul class="nav-links">
-            <li><a href="#renginiai">Renginiai</a></li>
-            <li><a href="#rezimai">Režimai</a></li>
-            <li><a href="#galerija">Galerija</a></li>
-            <li><a href="#atsiliepimai">Atsiliepimai</a></li>
-            <li><a href="#kontaktai">Kontaktai</a></li>
-        </ul>
-    </header>
+    <div class="pin" id="pin-card"></div>
 
-    <section class="hero">
-        <h1>Lithilas Airsoft</h1>
-        <p>Pajiešmenių šratasvydžio poligonas. Adrenalinas, taktika ir geriausia CQB patirtis regione.</p>
-        <a href="#renginiai"><button class="btn">Artimiausi Žaidimai</button></a>
-    </section>
+    <div id="games"></div>
 
-    <section id="renginiai">
-        <h2 class="section-title">Artimiausi Renginiai</h2>
-        <div class="event-item">
-            <div style="flex: 1;">
-                <h3>#2.1 Lithilas CQB</h3>
-                <p style="color: #aaa;">Data: Kovo 28 d. | Vieta: Pajiešmeniai</p>
-            </div>
-            <a href="https://sratas.lt/organizators/72" target="_blank" class="btn" style="font-size: 0.9rem; padding: 10px 20px;">Registruotis</a>
+    <details class="settings hidden" id="settings">
+        <summary>Adresai ir failų pavadinimai</summary>
+        <div class="field">
+            <label for="base">Svetainės aplankas (palikite tuščią, jei šis puslapis guli šalia žaidimų)</label>
+            <input type="text" id="base" placeholder="https://jusu-svetaine.lt/zaidimai/" autocomplete="off" autocapitalize="off" spellcheck="false">
         </div>
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="https://sratas.lt/organizators/72" target="_blank" class="btn btn-outline">Visi renginiai sratas.lt</a>
-        </div>
-    </section>
+        <div id="files"></div>
+        <p class="muted small" style="margin-top:12px;">Nustatymai išsaugomi tik šioje naršyklėje.</p>
+    </details>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
 
-    <section id="rezimai" style="background-color: #0f0f0f;">
-        <h2 class="section-title">Žaidimų Režimai</h2>
-        <div style="text-align: center; max-width: 900px; margin: 0 auto;">
-            <p style="margin-bottom: 30px;">Mūsų poligone ruošiame įvairius scenarijus:</p>
-            <div class="mode-tag">Bounty Hunter</div>
-            <div class="mode-tag">Bomberman</div>
-            <div class="mode-tag">CP Rush</div>
-            <div class="mode-tag">Deathmatch</div>
-            <div class="mode-tag">Hardpoint</div>
-        </div>
-    </section>
+<script>
+    /* Pridėti naują žaidimą: nukopijuokite bloką į GAMES. dot: red | blue | ink | (tuščia = pilka) */
+    const GAMES = [
+        { id: 'bounty', rules: [
+            'Raudona ir mėlyna komandos turi po vieną bendrą telefoną.',
+            'Kiekviena komanda medžioja vieną atsitiktinį gyvą priešo žaidėją.',
+            'Nužudymas: nuskenuokite taikinio NFC žymę, tada savo (nužudžiusio žaidėjo) žymę.',
+            'Klaidingas skenavimas užrakina telefoną 15 sekundžių.',
+            'Žuvę žaidėjai gali toliau rinkti taškus.',
+            'Žaidimas baigiasi pasibaigus laikui arba kai komandoje nebelieka gyvų žaidėjų. Laimi komanda su daugiau gyvų žaidėjų, jei vienodai – su daugiau nužudymų.' ], file: 'bounty-hunter.html', title: 'Lithilas Bounty Hunter', desc: 'Komandų medžioklė su NFC. Vienas telefonas kiekvienai komandai.',
+          links: [
+            { label: 'Raudona komanda', q: '?role=RAUDONA', dot: 'red' },
+            { label: 'Mėlyna komanda', q: '?role=MELYNA', dot: 'blue' },
+            { label: 'Žaidimo vedėjas (GM)', q: '?role=GM', dot: 'ink', gm: true } ] },
+        { id: 'points', rules: [
+            'Yra du punktai, bet kiekvienu metu aktyvus tik vienas. Aktyvus punktas keičiasi kas nustatytą laiką (iš pradžių 15 min.).',
+            'Punktą užima komanda, kuri savo spalvos mygtuką laiko nuspaudusi apie 10 sekundžių, kol užsipildys ratas.',
+            'Jei per tą laiką kita komanda paspaudžia savo mygtuką, užėmimas nutraukiamas ir prasideda iš naujo.',
+            'Komandai skaičiuojamas laikas, kol ji valdo aktyvų punktą. Kai punktas pasikeičia, valdymas pasibaigia.',
+            'Likus 1 minutei iki keitimo suskamba signalas.',
+            'Laimi komanda, kuri iki žaidimo pabaigos (iš pradžių 120 min.) surinko daugiau valdymo laiko.' ], file: 'airsoft-points.html', title: 'Airsoft taškai', desc: 'Dviejų punktų užėmimo laikmatis, punktai keičiasi pagal laiką.',
+          links: [
+            { label: 'Punktas 1', q: '?role=point1', dot: '' },
+            { label: 'Punktas 2', q: '?role=point2', dot: '' },
+            { label: 'Žaidimo vedėjas (GM)', q: '?role=gm', dot: 'ink', gm: true },
+            { label: 'Stebėtojas', q: '?role=observer', dot: '' } ] },
+        { id: 'cprush', rules: [
+            'Puolėjai užima tris kontrolės taškus iš eilės: KT1, KT2 ir paskutinį KT. Gynėjai juos gina.',
+            'Atvykę į tašką puolėjai paspaudžia „Mes atvykome“ – prasideda užėmimo laikmatis (įprastai 20, 18 ir 15 min.).',
+            'Kai laikmatis pasiekia nulį, taškas užimtas. Užėmus KT2, tampa nauja bazė, iš kurios keliaujama į paskutinį tašką.',
+            'Visas žaidimas trunka 105 minutes. Puolėjai laimi, jei užima visus tris taškus, gynėjai – jei laikas pasibaigia anksčiau.',
+            'Puolėjai arba žaidimo vedėjas gali sustabdyti užėmimo laiką pauze, bendras žaidimo laikas tuo metu vis tiek eina.',
+            'Gynėjai savo telefone mato žemėlapį ir tai, kuris taškas dabar užimamas.' ], file: 'cp-rush.html', title: 'Taško užėmimas', desc: 'Puolėjai užima tris kontrolės taškus, gynėjai gina.',
+          links: [
+            { label: 'Puolėjai', q: '?role=attacker', dot: '' },
+            { label: 'Gynėjai', q: '?role=defender', dot: '' },
+            { label: 'Žaidimo vedėjas (GM)', q: '?role=gm', dot: 'ink', gm: true } ] },
+        { id: 'terminal', rules: [
+            'Žaidimas trunka 105 minutes. Taškai renkami nuskenuojant NFC žymes telefonu.',
+            '1 etapas (0–10 min.): pasiruošimas, taškai neaktyvūs.',
+            '2 etapas (10–40 min.): kas 10 min. aktyvuojamas vienas taškas. Kiekviena komanda jį gali nuskenuoti vieną kartą: +4 tšk.',
+            '3 etapas (40–70 min.): kas 10 min. aktyvūs du taškai, bet vienas jų netikras ir taškų neduoda. Taškas vėl +4 tšk.',
+            '4 etapas (70–105 min.): dominavimas, penki taškai. Pirmas skenavimas pradeda 5 min. atrakinimą, po jo pirmoji komanda, nuskenavusi tašką, jį užima: +3 tšk.',
+            'Laimi komanda, surinkusi daugiau taškų.' ], file: 'lithilas-terminal.html', title: 'Lithilas terminalas', desc: 'NFC taškų rinkimas 105 min., keturi etapai.',
+          links: [
+            { label: 'Raudona komanda', q: '?team=raudona', dot: 'red' },
+            { label: 'Mėlyna komanda', q: '?team=melyna', dot: 'blue' },
+            { label: 'Admin', q: '?role=admin', dot: 'ink', gm: true } ] }
+    ];
 
-    <section id="galerija">
-        <h2 class="section-title">Akimirkos</h2>
-        <div class="insta-grid">
-            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item"><img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=500"></a>
-            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item"><img src="https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?q=80&w=500"></a>
-            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item"><img src="https://images.unsplash.com/photo-1583095117325-1442167d2643?q=80&w=500"></a>
-            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item"><img src="https://images.unsplash.com/photo-1544531406-3c588a44955b?q=80&w=500"></a>
-            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item"><img src="https://images.unsplash.com/photo-1531844251246-9a1bfaae09fc?q=80&w=500"></a>
-            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item"><img src="https://images.unsplash.com/photo-1605650111210-90805c6d36e2?q=80&w=500"></a>
-        </div>
-    </section>
+    const store = {
+        get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+        set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    };
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-    <section id="atsiliepimai" style="background-color: #0f0f0f;">
-        <h2 class="section-title">Atsiliepimai</h2>
-        <div class="grid-container">
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"10/10 Labai geri žaidimai"</p>
-                <span class="reviewer">Lordas Farkvadas</span>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Super teritorija, kolektyvas draugiškas. Rekomenduoju!"</p>
-                <span class="reviewer">Lankytojas</span>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Geras laisvalaikio praleidimas ir fizinis aktyvumas"</p>
-                <span class="reviewer">Žaidėjas</span>
-            </div>
-        </div>
-    </section>
+    /* GM nuorodos rodomos tik įvedus PIN (tai tik paslėpimas puslapyje, ne tikra apsauga) */
+    const PIN_HASH = '9dm7gg';
+    const hashPin = p => { let h = 5381; const t = 'lt:' + p; for (let i = 0; i < t.length; i++) h = ((h * 33) ^ t.charCodeAt(i)) >>> 0; return h.toString(36); };
+    let unlocked = false;
+    try { unlocked = sessionStorage.getItem('gm_ok') === PIN_HASH; } catch (e) {}
+    const visible = l => !l.gm || unlocked;
+    function renderPin() {
+        document.getElementById('settings').classList.toggle('hidden', !unlocked);
+        document.getElementById('pin-card').innerHTML = unlocked
+            ? `<div class="pin-title"><span>Žaidimo vedėjo prieiga atrakinta</span><button class="btn" onclick="lockGm()">Užrakinti</button></div>`
+            : `<div class="pin-title">Žaidimo vedėjo prieiga</div>
+               <div class="pin-row"><input type="password" id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="PIN" autocomplete="off" aria-label="PIN kodas" onkeydown="if(event.key==='Enter')tryPin()">
+               <button class="btn btn-primary" onclick="tryPin()">Atrakinti</button></div>`;
+    }
+    function tryPin() {
+        const v = document.getElementById('pin').value.trim();
+        if (hashPin(v) !== PIN_HASH) { toast('Neteisingas PIN'); document.getElementById('pin').value = ''; return; }
+        unlocked = true; try { sessionStorage.setItem('gm_ok', PIN_HASH); } catch (e) {}
+        renderPin(); render();
+    }
+    function lockGm() { unlocked = false; try { sessionStorage.removeItem('gm_ok'); } catch (e) {} renderPin(); render(); }
 
-    <section id="kontaktai">
-        <h2 class="section-title">Mus rasite čia</h2>
-        <div style="text-align: center;">
-            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">Taikos g. 7, Pajiešmeniai, Pasvalio raj.</p>
-            <a href="https://maps.google.com/?cid=1528311061412707192&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank">
-                <button class="btn">Pradėti navigaciją</button>
-            </a>
-        </div>
-        
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2222.0!2d24.4853!3d56.1139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e79139a3d70ac5%3A0x1535a6d021cdfb78!2sLithilas%20%7C%20%C5%A0ratasvydis%20Pasvalyje!5e0!3m2!1slt!2slt!4v1711310000000!5m2!1slt!2slt" 
-                width="100%" 
-                height="100%" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-    </section>
+    function fileOf(g) { return (store.get('file_' + g.id, g.file) || g.file).trim(); }
+    function urlOf(g, l) {
+        let base = store.get('base', '').trim();
+        if (base && !base.endsWith('/')) base += '/';
+        const path = fileOf(g) + l.q;
+        if (base) return base + path;
+        try { return new URL(path, location.href).href; } catch (e) { return path; }
+    }
 
-    <footer>
-        <h2 style="color: var(--primary-color);">LITHILAS</h2>
-        <p style="margin: 15px 0;">
-            <a href="tel:+37063053591" class="footer-link">+370 630 53591</a> | 
-            <a href="mailto:preibysmarius@gmail.com" class="footer-link">preibysmarius@gmail.com</a>
-        </p>
-        <p style="margin-top: 30px; font-size: 0.8rem; color: #444;">© 2026 Lithilas. Visos teisės saugomos.</p>
-    </footer>
+    function render() {
+        document.getElementById('games').innerHTML = GAMES.map((g, i) => `
+            <section class="game">
+                <div class="game-head"><div><div class="num">Žaidimas ${i + 1}</div><h2>${esc(g.title)}</h2></div></div>
+                <p class="desc">${esc(g.desc)}</p>
+                <details class="rules"><summary>Taisyklės</summary><ul>${g.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></details>
+                ${g.links.map((l, j) => !visible(l) ? '' : `
+                    <div class="link">
+                        <div class="link-top">
+                            <i class="dot ${l.dot}"></i><span class="role">${esc(l.label)}</span>
+                            <button class="btn btn-copy" data-g="${i}" data-l="${j}" onclick="copyLink(this)">Kopijuoti</button>
+                            <a class="btn" href="${esc(urlOf(g, l))}" target="_blank" rel="noopener">Atidaryti</a>
+                        </div>
+                        <span class="url">${esc(urlOf(g, l))}</span>
+                    </div>`).join('')}
+                <div class="all"><button class="btn" data-g="${i}" onclick="copyAll(this)">Kopijuoti visas ${esc(g.title)} nuorodas</button></div>
+            </section>`).join('');
+    }
 
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+        return new Promise((res, rej) => {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy') ? res() : rej(); } catch (e) { rej(e); } finally { ta.remove(); }
+        });
+    }
+    let toastTimer;
+    function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.className = 'show'; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.className = ''; }, 2200); }
+    function copyLink(btn) {
+        const g = GAMES[+btn.dataset.g], l = g.links[+btn.dataset.l];
+        copyText(urlOf(g, l)).then(() => {
+            btn.textContent = 'Nukopijuota'; btn.classList.add('done');
+            setTimeout(() => { btn.textContent = 'Kopijuoti'; btn.classList.remove('done'); }, 1500);
+        }).catch(() => toast('Nepavyko nukopijuoti – pažymėkite nuorodą ranka'));
+    }
+    function copyAll(btn) {
+        const g = GAMES[+btn.dataset.g];
+        const text = g.title + '\n' + g.links.filter(visible).map(l => `${l.label}: ${urlOf(g, l)}`).join('\n');
+        copyText(text).then(() => toast('Visos nuorodos nukopijuotos')).catch(() => toast('Nepavyko nukopijuoti', true));
+    }
+
+    /* Nustatymai */
+    const baseEl = document.getElementById('base');
+    baseEl.value = store.get('base', '');
+    baseEl.addEventListener('input', () => { store.set('base', baseEl.value); render(); });
+    document.getElementById('files').innerHTML = GAMES.map(g => `
+        <div class="field"><label for="f-${g.id}">${esc(g.title)} – failas</label>
+        <input type="text" id="f-${g.id}" value="${esc(fileOf(g))}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>`).join('');
+    GAMES.forEach(g => document.getElementById('f-' + g.id).addEventListener('input', e => { store.set('file_' + g.id, e.target.value); render(); }));
+
+    renderPin();
+    render();
+</script>
 </body>
 </html>
