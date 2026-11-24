@@ -112,9 +112,13 @@
     .offer .btn { margin-top: auto; align-self: flex-start; }
 
     /* ===== Instagram ===== */
-    .insta { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 28px; }
+    .insta { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 28px; }
     .insta .ph { aspect-ratio: 1; min-height: 0; }
-    @media (max-width: 700px) { .insta { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .ig-post { position: relative; display: block; aspect-ratio: 1; border-radius: var(--radius); overflow: hidden; background: var(--ph); border: 1px solid var(--line); }
+    .ig-post img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+    .ig-post:hover img { transform: scale(1.04); }
+    .ig-post .ig-type { position: absolute; top: 10px; right: 10px; background: rgba(20,23,28,.72); color: #fff; font-size: .75rem; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+    @media (max-width: 700px) { .insta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
 
     /* ===== Apie / atsiliepimas ===== */
     .quote { margin-top: 24px; padding: 22px 24px; border-left: 4px solid var(--ink); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -291,12 +295,17 @@
 <!-- ============ INSTAGRAM ============ -->
 <section class="section" style="padding-top:0;">
     <div class="wrap">
-        <div class="kicker">Instagram</div>
+        <div class="kicker">Instagram · @lit.hil.as</div>
         <h2>Naujienos</h2>
-        <div class="grid insta">
-            <div class="ph">Įrašas</div><div class="ph">Įrašas</div><div class="ph">Įrašas</div><div class="ph">Įrašas</div>
+        <div class="grid insta" id="insta">
+            <a class="ph" href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener">Įrašas</a>
+            <a class="ph" href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener">Įrašas</a>
+            <a class="ph" href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener">Įrašas</a>
+            <a class="ph" href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener">Įrašas</a>
+            <a class="ph" href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener">Įrašas</a>
+            <a class="ph" href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener">Įrašas</a>
         </div>
-        <div style="margin-top:18px;"><a class="btn" href="#">Sekti Instagram</a></div>
+        <div style="margin-top:18px;"><a class="btn" href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener">Sekti @lit.hil.as</a></div>
     </div>
 </section>
 
@@ -380,7 +389,7 @@
                 <p style="margin-top:12px;">Trumpas šūkis ar aprašymas.</p>
                 <div class="social">
                     <a href="#" aria-label="Facebook">Fb</a>
-                    <a href="#" aria-label="Instagram">Ig</a>
+                    <a href="https://www.instagram.com/lit.hil.as/" target="_blank" rel="noopener" aria-label="Instagram">Ig</a>
                     <a href="#" aria-label="LinkedIn">In</a>
                 </div>
             </div>
@@ -413,6 +422,32 @@
 
 <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ===== Instagram (@lit.hil.as) per Behold.so JSON srautą =====
+    // Įrašykite savo Behold srauto ID (iš https://feeds.behold.so/XXXXXXXX). Kol tuščia – rodomos vietos su nuoroda į profilį.
+    const BEHOLD_FEED_ID = '';
+    const IG_PROFILE = 'https://www.instagram.com/lit.hil.as/';
+    (async () => {
+        if (!BEHOLD_FEED_ID) return;
+        try {
+            const res = await fetch('https://feeds.behold.so/' + BEHOLD_FEED_ID, { cache: 'no-cache' });
+            if (!res.ok) return;
+            const data = await res.json();
+            const posts = (Array.isArray(data) ? data : data.posts || []).slice(0, 6);
+            if (!posts.length) return;
+            const esc = v => String(v || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+            const img = p => (p.sizes && p.sizes.medium && p.sizes.medium.mediaUrl) || p.thumbnailUrl || p.mediaUrl || '';
+            const safe = u => /^https:\/\//.test(u) ? u : '';
+            document.getElementById('insta').innerHTML = posts.map(p => {
+                const src = safe(img(p)); const link = safe(p.permalink) || IG_PROFILE;
+                const alt = esc((p.prunedCaption || p.caption || 'Instagram įrašas').slice(0, 120));
+                const type = p.mediaType === 'VIDEO' ? 'Video' : p.mediaType === 'CAROUSEL_ALBUM' ? 'Albumas' : '';
+                return `<a class="ig-post" href="${esc(link)}" target="_blank" rel="noopener">`
+                    + (src ? `<img src="${esc(src)}" alt="${alt}" loading="lazy">` : '')
+                    + (type ? `<span class="ig-type">${type}</span>` : '') + `</a>`;
+            }).join('');
+        } catch (e) { /* nėra ryšio ar srautas nepasiekiamas – paliekamos vietos */ }
+    })();
     // Išskleidžiami meniu (palietimu telefone, užvedus pele kompiuteryje)
     document.querySelectorAll('.menu > li > button').forEach(b => {
         b.addEventListener('click', e => {
