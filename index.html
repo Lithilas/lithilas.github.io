@@ -55,15 +55,9 @@
     .logo img { width: 44px; height: 44px; border-radius: 50%; }
     .menu { display: flex; align-items: center; gap: 4px; margin-left: auto; list-style: none; padding: 0; margin-top: 0; margin-bottom: 0; }
     .menu > li { position: relative; }
-    .menu a, .menu button { display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; font: 600 .98rem 'Barlow', sans-serif;
+    .menu a { display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; font: 600 .98rem 'Barlow', sans-serif;
                             background: none; border: none; color: var(--ink); cursor: pointer; }
-    .menu a:hover, .menu button:hover { background: var(--bg); color: var(--red); }
-    .menu button::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-                          transform: rotate(45deg); margin: 0 0 3px 8px; }
-    .sub { display: none; position: absolute; top: 100%; left: 0; min-width: 220px; background: var(--surface); border: 1px solid var(--line);
-           border-radius: 14px; padding: 6px; list-style: none; margin: 4px 0 0; box-shadow: 0 10px 30px rgba(20,23,28,.08); }
-    .menu li.open > .sub { display: block; }
-    @media (hover: hover) { .menu li:hover > .sub { display: block; } }
+    .menu a:hover { background: var(--bg); color: var(--red); }
     .lang { display: flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 600; font-size: .92rem; }
     .burger { display: none; margin-left: auto; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); cursor: pointer; }
     .burger span { display: block; width: 18px; height: 2px; background: var(--ink); margin: 4px auto; }
@@ -74,8 +68,7 @@
         .menu, .lang, .nav-cta { display: none; }
         header.open .menu { display: flex; flex-direction: column; align-items: stretch; position: absolute; top: 68px; left: 0; right: 0;
                             background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 16px; gap: 0; }
-        header.open .menu a, header.open .menu button { width: 100%; text-align: left; padding: 14px 8px; }
-        header.open .sub { position: static; box-shadow: none; border: none; padding: 0 0 0 12px; margin: 0; }
+        header.open .menu a { width: 100%; text-align: left; padding: 14px 8px; }
     }
 
     /* ===== Hero ===== */
@@ -172,13 +165,7 @@
         <ul class="menu" id="menu">
             <li><a href="#registracija">Registracija į žaidimus</a></li>
             <li><a href="#renginiai">Vieši renginiai</a></li>
-            <li>
-                <button type="button" aria-expanded="false">Kontaktai</button>
-                <ul class="sub">
-                    <li><a href="#apie">Apie mus</a></li>
-                    <li><a href="#kontaktai">Kontaktai</a></li>
-                </ul>
-            </li>
+            <li><a href="#kontaktai">Kontaktai</a></li>
         </ul>
         <span class="lang">LT</span>
         <a class="btn primary nav-cta" href="#registracija">Registruotis</a>
@@ -406,16 +393,6 @@
             }).join('');
         } catch (e) { /* nėra ryšio ar srautas nepasiekiamas – paliekamos vietos */ }
     })();
-    // Išskleidžiami meniu (palietimu telefone, užvedus pele kompiuteryje)
-    document.querySelectorAll('.menu > li > button').forEach(b => {
-        b.addEventListener('click', e => {
-            const li = b.parentElement, open = !li.classList.contains('open');
-            document.querySelectorAll('.menu > li.open').forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
-            if (open) { li.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
-            e.stopPropagation();
-        });
-    });
-    document.addEventListener('click', () => document.querySelectorAll('.menu > li.open').forEach(x => x.classList.remove('open')));
     // Uždaryti mobilų meniu paspaudus nuorodą
     document.querySelectorAll('.menu a').forEach(a => a.addEventListener('click', () => document.getElementById('top').classList.remove('open')));
 </script>
