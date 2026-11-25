@@ -58,14 +58,13 @@
     .menu a { display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; font: 600 .98rem 'Barlow', sans-serif;
                             background: none; border: none; color: var(--ink); cursor: pointer; }
     .menu a:hover { background: var(--bg); color: var(--red); }
-    .lang { display: flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 600; font-size: .92rem; }
     .burger { display: none; margin-left: auto; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); cursor: pointer; }
     .burger span { display: block; width: 18px; height: 2px; background: var(--ink); margin: 4px auto; }
     .nav-cta { margin-left: 8px; }
 
     @media (max-width: 900px) {
         .burger { display: block; }
-        .menu, .lang, .nav-cta { display: none; }
+        .menu, .nav-cta { display: none; }
         header.open .menu { display: flex; flex-direction: column; align-items: stretch; position: absolute; top: 68px; left: 0; right: 0;
                             background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 16px; gap: 0; }
         header.open .menu a { width: 100%; text-align: left; padding: 14px 8px; }
@@ -167,7 +166,6 @@
             <li><a href="#renginiai">Vieši renginiai</a></li>
             <li><a href="#kontaktai">Kontaktai</a></li>
         </ul>
-        <span class="lang">LT</span>
         <a class="btn primary nav-cta" href="#registracija">Registruotis</a>
         <button class="burger" type="button" aria-label="Meniu" onclick="document.getElementById('top').classList.toggle('open')"><span></span><span></span><span></span></button>
     </div>
