@@ -161,7 +161,7 @@
 <!-- ============ VIRŠUTINĖ JUOSTA ============ -->
 <header id="top">
     <div class="wrap nav">
-        <a class="logo" href="#top"><img src="logo.png" alt="">Lithilas</a>
+        <a class="logo" href="#"><img src="logo.png" alt="">Lithilas</a>
         <ul class="menu" id="menu">
             <li><a href="#registracija">Registracija į žaidimus</a></li>
             <li><a href="#renginiai">Vieši renginiai</a></li>
@@ -332,7 +332,7 @@
     <div class="wrap">
         <div class="f-grid">
             <div>
-                <a class="logo" href="#top"><img src="logo.png" alt="">Lithilas</a>
+                <a class="logo" href="#"><img src="logo.png" alt="">Lithilas</a>
                 <p style="margin-top:12px;">Lithuanian Highlands Airsoft</p>
                 <div class="social">
                     <a href="https://www.facebook.com/Lithilas/" target="_blank" rel="noopener" aria-label="Facebook">Fb</a>
@@ -392,6 +392,13 @@
     })();
     // Uždaryti mobilų meniu paspaudus nuorodą
     document.querySelectorAll('.menu a').forEach(a => a.addEventListener('click', () => document.getElementById('top').classList.remove('open')));
+    // Logotipas grąžina į puslapio viršų (antraštė „prilipusi“, todėl nuoroda į ją pati nepaslinktų).
+    document.querySelectorAll('.logo').forEach(a => a.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('top').classList.remove('open');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    }));
 </script>
 </body>
 </html>
