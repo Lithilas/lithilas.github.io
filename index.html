@@ -5,15 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lithilas – šratasvydis</title>
 <meta name="description" content="Lithilas – šratasvydžio žaidimai, renginiai, įranga ir renginių organizavimas.">
+<link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
     /* ===== Daylight spalvos ===== */
     :root {
-        --bg: #F4F5F7; --surface: #FFFFFF; --line: #D9DCE2; --line-strong: #C4C8D0;
-        --ink: #14171C; --muted: #5B6270; --red: #D92D27; --blue: #1F5FD6; --green: #1E7B3C;
-        --ph: #E6E8EC;          /* nuotraukų vietos */
+        /* Spalvos pagal logotipą: raudona, tamsiai raudona, beveik juoda, kreminė, chaki */
+        --bg: #FBF7F0; --surface: #FFFFFF; --line: #E7DDCF; --line-strong: #D3C5B2;
+        --ink: #0D0907; --muted: #6B5E50; --red: #B80D19; --red-dark: #801318; --khaki: #85755E;
+        --ph: #F1E8DB;          /* nuotraukų vietos */
         --radius: 16px;
         --wrap: 1120px;
     }
@@ -28,17 +30,18 @@
     p { margin: 0; }
     .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
     .section { padding: 72px 0; }
-    .kicker { font-weight: 600; color: var(--muted); font-size: .95rem; margin-bottom: 8px; }
+    .kicker { font-weight: 700; color: var(--red); font-size: .95rem; margin-bottom: 8px; }
     .lead { color: var(--muted); font-size: 1.1rem; max-width: 640px; margin-top: 12px; }
     .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); margin-right: 10px; flex: 0 0 auto; }
-    .dot.green { background: var(--green); }
+    .dot.green { background: var(--red); }
 
     /* ===== Mygtukai ===== */
     .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border-radius: 12px;
            border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 600 1rem 'Barlow', sans-serif; text-decoration: none; cursor: pointer; }
-    .btn.primary { background: var(--ink); color: #fff; }
+    .btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
+    .btn.primary:hover { background: var(--red-dark); border-color: var(--red-dark); filter: none; }
     .btn.light { border-color: #fff; color: #fff; }
-    .btn.light.primary { background: #fff; color: var(--ink); }
+    .btn.light.primary { background: var(--red); border-color: var(--red); color: #fff; }
     .btn:hover { filter: brightness(.92); }
 
     /* ===== Nuotraukų vietos ===== */
@@ -46,15 +49,15 @@
           color: var(--muted); font-size: .9rem; text-align: center; padding: 12px; min-height: 160px; border: 1px dashed var(--line-strong); }
 
     /* ===== Viršutinė juosta ===== */
-    header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
+    header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); border-top: 4px solid var(--red); border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
     .nav { display: flex; align-items: center; gap: 24px; min-height: 68px; }
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 1.6rem 'Barlow Condensed', sans-serif; letter-spacing: .02em; }
-    .logo-mark { width: 36px; height: 36px; border-radius: 10px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .logo img { width: 44px; height: 44px; border-radius: 50%; }
     .menu { display: flex; align-items: center; gap: 4px; margin-left: auto; list-style: none; padding: 0; margin-top: 0; margin-bottom: 0; }
     .menu > li { position: relative; }
     .menu a, .menu button { display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; font: 600 .98rem 'Barlow', sans-serif;
                             background: none; border: none; color: var(--ink); cursor: pointer; }
-    .menu a:hover, .menu button:hover { background: var(--bg); }
+    .menu a:hover, .menu button:hover { background: var(--bg); color: var(--red); }
     .menu button::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
                           transform: rotate(45deg); margin: 0 0 3px 8px; }
     .sub { display: none; position: absolute; top: 100%; left: 0; min-width: 220px; background: var(--surface); border: 1px solid var(--line);
@@ -77,15 +80,15 @@
 
     /* ===== Hero ===== */
     .hero { position: relative; min-height: min(86vh, 760px); display: flex; align-items: flex-end; color: #fff; overflow: hidden;
-            background: #1E2228 linear-gradient(180deg, rgba(20,23,28,.15), rgba(20,23,28,.85)); }
+            background: var(--red-dark); }
     .hero-photo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.35);
                   font-size: .95rem; letter-spacing: .04em; filter: grayscale(1);
-                  background: repeating-linear-gradient(135deg, #2A2F37 0 24px, #262B32 24px 48px); }
+                  background: repeating-linear-gradient(135deg, #2A1A17 0 24px, #251614 24px 48px); }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,23,28,.1) 30%, rgba(20,23,28,.85)); }
+    .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,9,7,.15) 20%, rgba(128,19,24,.88)); }
     .hero-in { position: relative; padding-bottom: 72px; padding-top: 120px; }
     .hero h1 { font-size: clamp(3rem, 11vw, 6.5rem); }
-    .hero .tags { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 14px 0 28px; font-size: 1.15rem; color: #D9DCE2; }
+    .hero .tags { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 14px 0 28px; font-size: 1.15rem; color: #F3E6D8; }
     .hero .tags span { display: flex; align-items: center; }
     .hero .tags .dot { background: #fff; width: 6px; height: 6px; }
     .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -121,7 +124,7 @@
     @media (max-width: 700px) { .insta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
 
     /* ===== Apie / atsiliepimas ===== */
-    .quote { margin-top: 24px; padding: 22px 24px; border-left: 4px solid var(--ink); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .quote { margin-top: 24px; padding: 22px 24px; border-left: 4px solid var(--red); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .quote p { font-size: 1.1rem; }
     .quote small { display: block; margin-top: 10px; color: var(--muted); }
 
@@ -131,32 +134,33 @@
     .faq summary { list-style: none; cursor: pointer; padding: 18px 52px 18px 20px; font-weight: 600; position: relative; }
     .faq summary::-webkit-details-marker { display: none; }
     .faq summary::after { content: '+'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font: 600 1.5rem 'Barlow', sans-serif; color: var(--muted); }
-    .faq details[open] summary::after { content: '–'; }
+    .faq details[open] summary::after { content: '–'; color: var(--red); }
+    .faq details[open] { border-color: var(--red); }
     .faq details p { padding: 0 20px 18px; color: var(--muted); }
 
     /* ===== Skaičiai ir kvietimas ===== */
     .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; max-width: 560px; }
-    .stat b { display: block; font: 700 3.4rem/1 'Barlow Condensed', sans-serif; }
+    .stat b { display: block; font: 700 3.4rem/1 'Barlow Condensed', sans-serif; color: var(--red); }
     .stat span { color: var(--muted); }
-    .join { position: relative; border-radius: 22px; overflow: hidden; color: #fff; background: #1E2228; min-height: 340px; display: flex; align-items: flex-end; }
+    .join { position: relative; border-radius: 22px; overflow: hidden; color: #fff; background: var(--red-dark); min-height: 340px; display: flex; align-items: flex-end; }
     .join .hero-photo { border-radius: 0; align-items: flex-start; justify-content: flex-end; padding: 18px 22px; }
     .join-in { position: relative; padding: 36px; }
-    .join-in p { color: #D9DCE2; margin: 10px 0 20px; max-width: 520px; }
+    .join-in p { color: #F3E6D8; margin: 10px 0 20px; max-width: 520px; }
 
 
     /* ===== Poraštė ===== */
-    footer { background: var(--surface); border-top: 1px solid var(--line); padding: 56px 0 28px; margin-top: 24px; }
+    footer { background: var(--ink); color: #FBF7F0; border-top: 4px solid var(--red); padding: 56px 0 28px; margin-top: 24px; }
     .f-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 28px; }
     @media (max-width: 860px) { .f-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
     @media (max-width: 520px) { .f-grid { grid-template-columns: minmax(0, 1fr); } }
     footer h4 { margin: 0 0 10px; font-size: 1rem; }
-    footer p, footer li { color: var(--muted); font-size: .96rem; }
+    footer p, footer li { color: #C9BBA8; font-size: .96rem; }
     footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
     footer a { text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     .social { display: flex; gap: 8px; margin-top: 14px; }
-    .social a { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85rem; }
-    .copy { border-top: 1px solid var(--line); margin-top: 36px; padding-top: 20px; color: var(--muted); font-size: .9rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+    .social a { width: 40px; height: 40px; border: 1px solid #3A2E28; color: #FBF7F0; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85rem; }
+    .copy { border-top: 1px solid #3A2E28; margin-top: 36px; padding-top: 20px; color: #C9BBA8; font-size: .9rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
 </style>
 </head>
 <body>
@@ -164,7 +168,7 @@
 <!-- ============ VIRŠUTINĖ JUOSTA ============ -->
 <header id="top">
     <div class="wrap nav">
-        <a class="logo" href="#top"><span class="logo-mark">L</span>Lithilas</a>
+        <a class="logo" href="#top"><img src="logo.png" alt="">Lithilas</a>
         <ul class="menu" id="menu">
             <li><a href="#registracija">Registracija į žaidimus</a></li>
             <li><a href="#renginiai">Vieši renginiai</a></li>
@@ -344,7 +348,7 @@
     <div class="wrap">
         <div class="f-grid">
             <div>
-                <a class="logo" href="#top"><span class="logo-mark">L</span>Lithilas</a>
+                <a class="logo" href="#top"><img src="logo.png" alt="">Lithilas</a>
                 <p style="margin-top:12px;">Trumpas šūkis ar aprašymas.</p>
                 <div class="social">
                     <a href="#" aria-label="Facebook">Fb</a>
